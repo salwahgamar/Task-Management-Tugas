@@ -31,6 +31,20 @@ class UserModel {
     return rows.length > 0 ? rows[0] : null;
   }
 
+  // Get all users (admin only)
+  async getAllUsers() {
+    const query = 'SELECT id, username, email, role, created_at FROM users ORDER BY created_at DESC';
+    const [rows] = await this.db.execute(query);
+    return rows;
+  }
+
+  // Delete user by ID (admin only)
+  async deleteById(id) {
+    const query = 'DELETE FROM users WHERE id = ?';
+    const [result] = await this.db.execute(query, [id]);
+    return result.affectedRows > 0;
+  }
+
   // Seed default admin and user if users table is empty
   async seedDefaultUsers(bcrypt) {
     try {
