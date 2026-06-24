@@ -25,6 +25,11 @@ const MainLayout = () => {
     return <Navigate to="/login" replace />;
   }
 
+  // Admin tidak boleh akses halaman user — redirect ke admin panel
+  if (user.role === 'admin') {
+    return <Navigate to="/admin" replace />;
+  }
+
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-950">
       {/* Sidebar Navigation */}

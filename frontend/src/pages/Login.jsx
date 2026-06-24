@@ -40,8 +40,13 @@ const Login = () => {
 
     try {
       // Async/Await API Request
-      await login(formData.username, formData.password);
-      navigate('/dashboard');
+      const loggedUser = await login(formData.username, formData.password);
+      // Redirect berdasarkan role: admin → /admin, user → /dashboard
+      if (loggedUser?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       // Error handling & Loading State
       setApiError(err.message || 'Login gagal. Silakan periksa kredensial Anda.');

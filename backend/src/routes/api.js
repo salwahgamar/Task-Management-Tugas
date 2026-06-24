@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/AuthController');
 const TaskController = require('../controllers/TaskController');
-const { authenticateToken } = require('../middleware/authMiddleware');
+const UserController = require('../controllers/UserController');
+const { authenticateToken, authorizeRole } = require('../middleware/authMiddleware');
 
 // --- Auth Endpoints ---
 router.post('/register', AuthController.register);
@@ -18,5 +19,9 @@ router.delete('/data/:id', authenticateToken, TaskController.deleteTask);
 
 // --- Extra Dashboard Statistics Endpoint (Protected) ---
 router.get('/stats', authenticateToken, TaskController.getStats);
+
+// --- Admin-Only: User Management Endpoints ---
+router.get('/users', authenticateToken, authorizeRole('admin'), UserController.getUsers);
+router.delete('/users/:id', authenticateToken, authorizeRole('admin'), UserController.deleteUser);
 
 module.exports = router;
