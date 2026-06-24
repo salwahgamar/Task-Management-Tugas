@@ -56,7 +56,7 @@ const Login = () => {
         Selamat Datang Kembali
       </h2>
       <p className="text-sm text-slate-400 text-center mb-6">
-        Masuk menggunakan username atau email Anda.
+        Masukan username atau email dan password anda
       </p>
 
       {apiError && (
