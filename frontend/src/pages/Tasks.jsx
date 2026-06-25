@@ -103,6 +103,27 @@ const Tasks = () => {
     }
   };
 
+  // Handle complete / incomplete status toggle
+  const handleToggleComplete = async (task) => {
+    setLoading(true);
+    setSuccessMsg('');
+    setError('');
+    try {
+      const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+      const res = await taskService.updateTask(task.id, {
+        title: task.title,
+        description: task.description,
+        status: newStatus,
+        due_date: task.due_date
+      });
+      setSuccessMsg(newStatus === 'completed' ? 'Tugas ditandai sebagai selesai!' : 'Tugas dipulihkan.');
+      fetchTasks(searchQuery);
+    } catch (err) {
+      setError(err.message || 'Gagal memperbarui status tugas.');
+      setLoading(false);
+    }
+  };
+
   // Flash Message auto-timeout
   useEffect(() => {
     if (successMsg) {
@@ -186,9 +207,10 @@ const Tasks = () => {
         </div>
       ) : (
         <TaskTable
-          tasks={tasks}
+          tasks={tasks.filter(t => t.status !== 'completed')}
           onEdit={handleOpenEditModal}
           onDelete={handleDeleteTask}
+          onToggleComplete={handleToggleComplete}
           currentUser={user}
         />
       )}
