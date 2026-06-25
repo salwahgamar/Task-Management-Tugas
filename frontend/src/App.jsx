@@ -5,12 +5,14 @@ import { AuthProvider } from './hooks/useAuth';
 // Layouts
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
+import AdminLayout from './layouts/AdminLayout';
 
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
+import AdminPanel from './pages/AdminPanel';
 
 function App() {
   return (
@@ -23,7 +25,12 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Route>
 
-          {/* Protected Main Routes (Dashboard, Task CRUD) */}
+          {/* Admin-Only Routes */}
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<AdminPanel />} />
+          </Route>
+
+          {/* Protected User Routes (Dashboard, Task CRUD) */}
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tasks" element={<Tasks />} />
