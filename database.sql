@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     description TEXT,
     status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
     due_date DATE NOT NULL,
+    is_priority TINYINT(1) DEFAULT 0,
     user_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -35,8 +36,8 @@ INSERT INTO users (id, username, email, password, role) VALUES
 ON DUPLICATE KEY UPDATE username=username;
 
 -- 5. Contoh Data Tugas untuk Demo
-INSERT INTO tasks (id, title, description, status, due_date, user_id) VALUES
-(1, 'Menyelesaikan Laporan UAS', 'Menyusun laporan akhir proyek tugas manajemen tugas.', 'in_progress', '2026-06-30', 2),
-(2, 'Mempersiapkan Presentasi Proyek', 'Membuat slide materi presentasi UAS mata kuliah pemrograman web.', 'pending', '2026-07-02', 2),
-(3, 'Review Kinerja Server', 'Memantau penggunaan memori dan kapasitas penyimpanan server.', 'completed', '2026-06-23', 1)
+INSERT INTO tasks (id, title, description, status, due_date, is_priority, user_id) VALUES
+(1, 'Menyelesaikan Laporan UAS', 'Menyusun laporan akhir proyek tugas manajemen tugas.', 'in_progress', '2026-06-30', 1, 2),
+(2, 'Mempersiapkan Presentasi Proyek', 'Membuat slide materi presentasi UAS mata kuliah pemrograman web.', 'pending', '2026-07-02', 0, 2),
+(3, 'Review Kinerja Server', 'Memantau penggunaan memori dan kapasitas penyimpanan server.', 'completed', '2026-06-23', 0, 1)
 ON DUPLICATE KEY UPDATE title=title;
