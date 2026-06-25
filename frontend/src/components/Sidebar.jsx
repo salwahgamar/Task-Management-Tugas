@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, CheckSquare, X } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, X, History } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -16,6 +16,11 @@ const Sidebar = ({ isOpen, onClose }) => {
       name: 'Kelola Tugas',
       path: '/tasks',
       icon: CheckSquare,
+    },
+    {
+      name: 'Riwayat Tugas',
+      path: '/history',
+      icon: History,
     },
   ];
 
