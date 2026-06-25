@@ -137,24 +137,7 @@ const Login = () => {
         </Link>
       </p>
 
-      {/* Seed Account Help Section */}
-      <div className="mt-6 border-t border-slate-800/80 pt-4 text-left">
-        <p className="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider mb-2">
-          Akun Demo (Database Seeder):
-        </p>
-        <div className="grid grid-cols-2 gap-2 text-xs text-slate-400">
-          <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/50">
-            <span className="font-semibold text-slate-300">Admin Panel:</span>
-            <p>User: <code className="text-indigo-300">admin</code></p>
-            <p>Pass: <code className="text-indigo-300">admin123</code></p>
-          </div>
-          <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/50">
-            <span className="font-semibold text-slate-300">Standard User:</span>
-            <p>User: <code className="text-indigo-300">user</code></p>
-            <p>Pass: <code className="text-indigo-300">user123</code></p>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 };
