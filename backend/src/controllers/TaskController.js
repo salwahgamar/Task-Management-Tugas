@@ -41,7 +41,7 @@ class TaskController {
   // POST /data (Create task)
   static async createTask(req, res) {
     try {
-      const { title, description, status, due_date } = req.body;
+      const { title, description, status, due_date, is_priority } = req.body;
       const user_id = req.user.id; // The logged in user is the owner
 
       // --- Validasi Backend (Mandatory) ---
@@ -64,6 +64,7 @@ class TaskController {
         description: description ? description.trim() : '',
         status: taskStatus,
         due_date,
+        is_priority: !!is_priority,
         user_id
       });
 
@@ -81,7 +82,7 @@ class TaskController {
   static async updateTask(req, res) {
     try {
       const { id } = req.params;
-      const { title, description, status, due_date } = req.body;
+      const { title, description, status, due_date, is_priority } = req.body;
       const userId = req.user.id;
       const role = req.user.role;
 
@@ -106,7 +107,8 @@ class TaskController {
           title: title.trim(),
           description: description ? description.trim() : '',
           status,
-          due_date
+          due_date,
+          is_priority: !!is_priority
         }
       );
 

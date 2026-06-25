@@ -7,7 +7,8 @@ import {
   Users, 
   Plus, 
   ArrowRight, 
-  TrendingUp 
+  TrendingUp,
+  Pin
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import taskService from '../services/task';
@@ -32,10 +33,18 @@ const Dashboard = () => {
         setStats(fetchedStats);
 
         const allTasks = await taskService.getTasks();
-        // Get top 3 nearest due tasks
+        // Sort incomplete tasks: priority tasks first, then by due date
         const sorted = [...allTasks]
           .filter(t => t.status !== 'completed')
-          .slice(0, 3);
+          .sort((a, b) => {
+            const aPriority = a.is_priority === 1 || a.is_priority === true ? 1 : 0;
+            const bPriority = b.is_priority === 1 || b.is_priority === true ? 1 : 0;
+            if (aPriority !== bPriority) {
+              return bPriority - aPriority;
+            }
+            return new Date(a.due_date) - new Date(b.due_date);
+          })
+          .slice(0, 4);
         setRecentTasks(sorted);
       } catch (err) {
         setError(err.message || 'Gagal memuat data dashboard.');
@@ -205,32 +214,44 @@ const Dashboard = () => {
                 <span>🎉 Bagus! Tidak ada tugas mendesak.</span>
               </div>
             ) : (
-              recentTasks.map(task => (
-                <div 
-                  key={task.id} 
-                  className="bg-slate-950/40 border border-slate-800 rounded-2xl p-4 hover:border-slate-750 transition-all flex flex-col gap-2"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="font-bold text-white text-sm line-clamp-1">{task.title}</span>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${
-                      task.status === 'in_progress' 
-                        ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' 
-                        : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                    }`}>
-                      {task.status === 'in_progress' ? 'Sedang Berjalan' : 'Tertunda'}
-                    </span>
-                  </div>
-                  {task.description && (
-                    <p className="text-xs text-slate-400 line-clamp-1">{task.description}</p>
-                  )}
-                  <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-850 text-[11px] text-slate-450">
-                    <span>Tenggat: <span className="font-medium text-slate-355">{formatDate(task.due_date)}</span></span>
-                    {user?.role === 'admin' && (
-                      <span className="text-indigo-400">Oleh: {task.owner}</span>
+              recentTasks.map(task => {
+                const isPriority = task.is_priority === 1 || task.is_priority === true;
+                return (
+                  <div 
+                    key={task.id} 
+                    className={`bg-slate-950/40 border rounded-2xl p-4 transition-all flex flex-col gap-2 ${
+                      isPriority 
+                        ? 'border-amber-500/30 hover:border-amber-500/50 shadow-md shadow-amber-500/5 bg-gradient-to-r from-amber-500/5 to-transparent' 
+                        : 'border-slate-800 hover:border-slate-750'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        {isPriority && (
+                          <Pin size={12} className="text-amber-400 fill-amber-400 shrink-0" />
+                        )}
+                        <span className="font-bold text-white text-sm line-clamp-1">{task.title}</span>
+                      </div>
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${
+                        task.status === 'in_progress' 
+                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' 
+                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                      }`}>
+                        {task.status === 'in_progress' ? 'Sedang Berjalan' : 'Tertunda'}
+                      </span>
+                    </div>
+                    {task.description && (
+                      <p className="text-xs text-slate-400 line-clamp-1">{task.description}</p>
                     )}
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-850 text-[11px] text-slate-450">
+                      <span>Tenggat: <span className="font-medium text-slate-355">{formatDate(task.due_date)}</span></span>
+                      {user?.role === 'admin' && (
+                        <span className="text-indigo-400">Oleh: {task.owner}</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         </div>
