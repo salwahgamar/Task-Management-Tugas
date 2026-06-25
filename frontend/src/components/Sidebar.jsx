@@ -42,8 +42,8 @@ const Sidebar = ({ isOpen, onClose }) => {
       >
         {/* Mobile Close Button */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-800 lg:hidden">
-          <span className="text-xl font-bold tracking-tight text-white">
-            🎯 Task<span className="text-indigo-400">Manager</span>
+          <span className="text-xl font-bold tracking-tight text-slate-100">
+            🎯 Task<span className="text-indigo-600 dark:text-indigo-400">Manager</span>
           </span>
           <button
             onClick={onClose}
@@ -55,8 +55,8 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Sidebar Header (only desktop) */}
         <div className="hidden lg:flex h-16 items-center px-6 border-b border-slate-800">
-          <span className="text-xl font-bold tracking-tight text-white">
-            🎯 Task<span className="text-indigo-400">Manager</span>
+          <span className="text-xl font-bold tracking-tight text-slate-100">
+            🎯 Task<span className="text-indigo-600 dark:text-indigo-400">Manager</span>
           </span>
         </div>
 
@@ -87,10 +87,10 @@ const Sidebar = ({ isOpen, onClose }) => {
         {/* User Role Card (Bottom) */}
         <div className="p-4 border-t border-slate-800/80">
           <div className="bg-slate-950/50 border border-slate-800/80 rounded-2xl p-4 flex flex-col items-center text-center">
-            <span className="text-xs text-indigo-400 font-semibold uppercase tracking-wider mb-1">
+            <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider mb-1">
               Role Aktif
             </span>
-            <span className="text-sm font-bold text-white capitalize">
+            <span className="text-sm font-bold text-slate-100 capitalize">
               {user?.role === 'admin' ? '⚙️ Administrator' : '🧑‍💻 Standard User'}
             </span>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">

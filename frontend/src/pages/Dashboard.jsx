@@ -77,10 +77,10 @@ const Dashboard = () => {
       {/* Welcome banner */}
       <div className="glass rounded-3xl p-6 md:p-8 border border-slate-800/80 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2 relative z-10">
-          <span className="text-xs font-semibold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-1 rounded-full">
+          <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 px-2.5 py-1 rounded-full">
             Ringkasan Sistem
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight">
             Halo, {user?.username}! 👋
           </h2>
           <p className="text-sm text-slate-400 max-w-xl">
@@ -110,33 +110,33 @@ const Dashboard = () => {
           title="Total Tugas"
           value={stats.total}
           icon={TrendingUp}
-          color={{ bg: 'bg-indigo-500/10', text: 'text-indigo-400', border: 'border-indigo-500/20' }}
+          color={{ bg: 'bg-indigo-50 dark:bg-indigo-500/10', text: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-100 dark:border-indigo-500/20' }}
         />
         <StatCard
           title="Tugas Tertunda"
           value={stats.pending}
           icon={AlertCircle}
-          color={{ bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/20' }}
+          color={{ bg: 'bg-rose-50 dark:bg-rose-500/10', text: 'text-rose-600 dark:text-rose-400', border: 'border-rose-100 dark:border-rose-500/20' }}
         />
         <StatCard
           title="Sedang Berjalan"
           value={stats.in_progress}
           icon={Clock}
-          color={{ bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' }}
+          color={{ bg: 'bg-amber-50 dark:bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-100 dark:border-amber-500/20' }}
         />
         {user?.role === 'admin' ? (
           <StatCard
             title="Total Pengguna"
             value={stats.totalUsers || 0}
             icon={Users}
-            color={{ bg: 'bg-teal-500/10', text: 'text-teal-400', border: 'border-teal-500/20' }}
+            color={{ bg: 'bg-teal-50 dark:bg-teal-500/10', text: 'text-teal-600 dark:text-teal-400', border: 'border-teal-100 dark:border-teal-500/20' }}
           />
         ) : (
           <StatCard
             title="Tugas Selesai"
             value={stats.completed}
             icon={CheckCircle}
-            color={{ bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' }}
+            color={{ bg: 'bg-emerald-50 dark:bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-100 dark:border-emerald-500/20' }}
           />
         )}
       </div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
         {/* Left Column: Progress Chart/Bars (3/5 cols) */}
         <div className="glass rounded-3xl p-6 border border-slate-800/80 lg:col-span-3 space-y-6">
           <div className="flex items-center justify-between border-b border-slate-850 pb-4">
-            <h3 className="text-lg font-bold text-white tracking-tight">Persentase Status Tugas</h3>
+            <h3 className="text-lg font-bold text-slate-100 tracking-tight">Persentase Status Tugas</h3>
             <span className="text-xs text-slate-400">Total Tugas: {stats.total}</span>
           </div>
 
@@ -162,9 +162,9 @@ const Dashboard = () => {
                   <span className="text-slate-300 font-medium flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Selesai
                   </span>
-                  <span className="text-emerald-400 font-semibold">{completedPercent}% ({stats.completed} Tugas)</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{completedPercent}% ({stats.completed} Tugas)</span>
                 </div>
-                <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div className="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
                   <div className="bg-emerald-500 h-full rounded-full transition-all duration-500" style={{ width: `${completedPercent}%` }}></div>
                 </div>
               </div>
@@ -174,9 +174,9 @@ const Dashboard = () => {
                   <span className="text-slate-300 font-medium flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Sedang Berjalan
                   </span>
-                  <span className="text-amber-400 font-semibold">{inProgressPercent}% ({stats.in_progress} Tugas)</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">{inProgressPercent}% ({stats.in_progress} Tugas)</span>
                 </div>
-                <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div className="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
                   <div className="bg-amber-500 h-full rounded-full transition-all duration-500" style={{ width: `${inProgressPercent}%` }}></div>
                 </div>
               </div>
@@ -186,9 +186,9 @@ const Dashboard = () => {
                   <span className="text-slate-300 font-medium flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Tertunda
                   </span>
-                  <span className="text-rose-400 font-semibold">{pendingPercent}% ({stats.pending} Tugas)</span>
+                  <span className="text-rose-600 dark:text-rose-400 font-semibold">{pendingPercent}% ({stats.pending} Tugas)</span>
                 </div>
-                <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div className="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
                   <div className="bg-rose-500 h-full rounded-full transition-all duration-500" style={{ width: `${pendingPercent}%` }}></div>
                 </div>
               </div>
@@ -199,7 +199,7 @@ const Dashboard = () => {
         {/* Right Column: Urgent Tasks (2/5 cols) */}
         <div className="glass rounded-3xl p-6 border border-slate-800/80 lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between border-b border-slate-850 pb-4">
-            <h3 className="text-lg font-bold text-white tracking-tight">Tugas Perlu Tindakan</h3>
+            <h3 className="text-lg font-bold text-slate-100 tracking-tight">Tugas Perlu Tindakan</h3>
             <button
               onClick={() => navigate('/tasks')}
               className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors"
@@ -230,12 +230,12 @@ const Dashboard = () => {
                         {isPriority && (
                           <Pin size={12} className="text-amber-400 fill-amber-400 shrink-0" />
                         )}
-                        <span className="font-bold text-white text-sm line-clamp-1">{task.title}</span>
+                        <span className="font-bold text-slate-100 text-sm line-clamp-1">{task.title}</span>
                       </div>
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${
                         task.status === 'in_progress' 
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' 
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-amber-50 border border-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20' 
+                          : 'bg-rose-50 border border-rose-100 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20'
                       }`}>
                         {task.status === 'in_progress' ? 'Sedang Berjalan' : 'Tertunda'}
                       </span>

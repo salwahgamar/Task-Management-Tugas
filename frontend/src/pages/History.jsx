@@ -133,7 +133,7 @@ const History = () => {
               <HistoryIcon size={12} /> Arsip Riwayat
             </span>
           </div>
-          <h2 className="text-2xl font-extrabold text-white tracking-tight">Riwayat Tugas</h2>
+          <h2 className="text-2xl font-extrabold text-slate-100 tracking-tight">Riwayat Tugas</h2>
           <p className="text-sm text-slate-400">
             Daftar tugas pengerjaan terdahulu yang telah diselesaikan.
           </p>
@@ -167,7 +167,7 @@ const History = () => {
             <button
               type="button"
               onClick={handleClearSearch}
-              className="absolute right-3 p-1 rounded-md text-slate-500 hover:text-white hover:bg-slate-800 transition-colors"
+              className="absolute right-3 p-1 rounded-md text-slate-500 hover:text-slate-100 hover:bg-slate-800 transition-colors"
             >
               <X size={14} />
             </button>
@@ -176,7 +176,7 @@ const History = () => {
 
         <button
           onClick={() => fetchTasks(searchQuery)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-800 text-slate-450 hover:text-white hover:bg-slate-900 transition-all text-sm font-medium self-end sm:self-center"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-800 text-slate-450 hover:text-slate-100 hover:bg-slate-900 transition-all text-sm font-medium self-end sm:self-center"
           title="Refresh Data"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />

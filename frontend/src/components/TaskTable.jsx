@@ -49,14 +49,14 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) =
                   }`}
                 >
                   {/* Title */}
-                  <td className="px-6 py-4 font-semibold text-white">
+                  <td className="px-6 py-4 font-semibold text-slate-100">
                     <div className="flex items-center gap-2">
                       {isPriority && (
                         <span 
-                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap"
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap"
                           title="Tugas Prioritas"
                         >
-                          <Pin size={10} className="fill-amber-400" /> Prioritas
+                          <Pin size={10} className="fill-amber-600 dark:fill-amber-400" /> Prioritas
                         </span>
                       )}
                       <div className="max-w-[180px] sm:max-w-[240px] truncate">
@@ -84,8 +84,8 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) =
                   {isAdmin && (
                     <td className="px-6 py-4 text-slate-300">
                       <div className="flex items-center gap-2">
-                        <UserIcon size={14} className="text-indigo-400" />
-                        <span className="font-medium text-indigo-300">{task.owner}</span>
+                        <UserIcon size={14} className="text-indigo-600 dark:text-indigo-400" />
+                        <span className="font-medium text-indigo-700 dark:text-indigo-300">{task.owner}</span>
                       </div>
                     </td>
                   )}
@@ -107,8 +107,8 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) =
                               onClick={() => onToggleComplete(task)}
                               className={`p-1.5 rounded-lg transition-colors ${
                                 task.status === 'completed'
-                                  ? 'text-slate-400 hover:text-amber-400 hover:bg-slate-800/50'
-                                  : 'text-slate-400 hover:text-emerald-400 hover:bg-slate-800/50'
+                                  ? 'text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-800/50'
+                                  : 'text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-800/50'
                               }`}
                               title={task.status === 'completed' ? 'Pulihkan Tugas (Menjadi Tertunda)' : 'Tandai Selesai'}
                             >
@@ -117,14 +117,14 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) =
                           )}
                           <button
                             onClick={() => onEdit(task)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-400 hover:bg-slate-800/50 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-800/50 transition-colors"
                             title="Edit Tugas"
                           >
                             <Edit size={16} />
                           </button>
                           <button
                             onClick={() => onDelete(task.id)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-800/50 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-800/50 transition-colors"
                             title="Hapus Tugas"
                           >
                             <Trash2 size={16} />

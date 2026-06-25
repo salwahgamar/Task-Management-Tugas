@@ -6,7 +6,7 @@ const StatCard = ({ title, value, icon: Icon, color }) => {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-slate-400">{title}</p>
-          <p className="text-3xl font-extrabold text-white mt-2 tracking-tight">
+          <p className="text-3xl font-extrabold text-slate-100 mt-2 tracking-tight">
             {value}
           </p>
         </div>

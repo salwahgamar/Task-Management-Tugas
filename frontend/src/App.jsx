@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
+import { ThemeProvider } from './hooks/useTheme';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -17,32 +18,34 @@ import History from './pages/History';
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          {/* Auth Routes (Login, Register) */}
-          <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Route>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            {/* Auth Routes (Login, Register) */}
+            <Route element={<AuthLayout />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
 
-          {/* Admin-Only Routes */}
-          <Route element={<AdminLayout />}>
-            <Route path="/admin" element={<AdminPanel />} />
-          </Route>
+            {/* Admin-Only Routes */}
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<AdminPanel />} />
+            </Route>
 
-          {/* Protected User Routes (Dashboard, Task CRUD) */}
-          <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/history" element={<History />} />
-          </Route>
+            {/* Protected User Routes (Dashboard, Task CRUD) */}
+            <Route element={<MainLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/tasks" element={<Tasks />} />
+              <Route path="/history" element={<History />} />
+            </Route>
 
-          {/* Fallback Route */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+            {/* Fallback Route */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

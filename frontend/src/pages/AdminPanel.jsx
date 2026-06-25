@@ -24,7 +24,7 @@ const DeleteModal = ({ targetUser, onConfirm, onCancel, isDeleting }) => (
         </div>
       </div>
 
-      <h3 className="text-lg font-bold text-white text-center mb-1">Hapus Pengguna?</h3>
+      <h3 className="text-lg font-bold text-slate-100 text-center mb-1">Hapus Pengguna?</h3>
       <p className="text-slate-400 text-sm text-center mb-5">
         Anda akan menghapus akun{' '}
         <span className="text-rose-400 font-semibold">"{targetUser?.username}"</span> secara permanen.
@@ -61,7 +61,7 @@ const RoleBadge = ({ role }) => (
   <span
     className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${
       role === 'admin'
-        ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+        ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
         : 'bg-slate-700/50 text-slate-300 border-slate-600/50'
     }`}
   >
@@ -137,22 +137,22 @@ const AdminPanel = () => {
       )}
 
       {/* ── Header Banner ── */}
-      <div className="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-900 p-6 md:p-8">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-50 via-slate-900 to-slate-900 dark:from-amber-955/40 dark:via-slate-900 dark:to-slate-900 p-6 md:p-8">
         {/* Glow effect */}
         <div className="absolute -top-10 -right-10 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-3 py-1 rounded-full">
                 <Shield size={11} /> Admin Control Panel
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight">
               Manajemen Pengguna
             </h1>
             <p className="text-sm text-slate-400 max-w-lg">
-              Selamat datang, <span className="text-amber-400 font-semibold">{currentUser?.username}</span>. 
+              Selamat datang, <span className="text-amber-600 dark:text-amber-400 font-semibold">{currentUser?.username}</span>. 
               Anda dapat melihat seluruh daftar pengguna terdaftar dan menghapus akun yang tidak diperlukan.
             </p>
           </div>
@@ -188,32 +188,32 @@ const AdminPanel = () => {
           {
             label: 'Total Pengguna',
             value: users.length,
-            color: 'amber',
-            icon: <Users size={20} className="text-amber-400" />,
+            icon: Users,
+            color: { bg: 'bg-amber-50 dark:bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-100 dark:border-amber-500/20' }
           },
           {
             label: 'Total Admin',
             value: totalAdmins,
-            color: 'rose',
-            icon: <Shield size={20} className="text-rose-400" />,
+            icon: Shield,
+            color: { bg: 'bg-rose-50 dark:bg-rose-500/10', text: 'text-rose-600 dark:text-rose-400', border: 'border-rose-100 dark:border-rose-500/20' }
           },
           {
             label: 'Total User Biasa',
             value: totalRegularUsers,
-            color: 'slate',
-            icon: <Users size={20} className="text-slate-400" />,
+            icon: Users,
+            color: { bg: 'bg-indigo-50 dark:bg-indigo-500/10', text: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-100 dark:border-indigo-500/20' }
           },
-        ].map(({ label, value, color, icon }) => (
+        ].map(({ label, value, icon: Icon, color }) => (
           <div
             key={label}
-            className={`glass rounded-2xl p-5 border border-${color}-500/20 flex items-center gap-4`}
+            className={`glass rounded-2xl p-5 border ${color.border} flex items-center gap-4`}
           >
-            <div className={`w-11 h-11 rounded-xl bg-${color}-500/10 border border-${color}-500/20 flex items-center justify-center flex-shrink-0`}>
-              {icon}
+            <div className={`w-11 h-11 rounded-xl ${color.bg} border ${color.border} flex items-center justify-center flex-shrink-0 ${color.text}`}>
+              <Icon size={20} />
             </div>
             <div>
               <p className="text-xs text-slate-400 font-medium">{label}</p>
-              <p className="text-2xl font-extrabold text-white">{value}</p>
+              <p className="text-2xl font-extrabold text-slate-100">{value}</p>
             </div>
           </div>
         ))}
@@ -235,7 +235,7 @@ const AdminPanel = () => {
       <div className="glass rounded-3xl border border-slate-800/80 overflow-hidden">
         {/* Table Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800/80">
-          <h2 className="text-base font-bold text-white">Daftar Pengguna Terdaftar</h2>
+          <h2 className="text-base font-bold text-slate-100">Daftar Pengguna Terdaftar</h2>
           <span className="text-xs text-slate-400">
             {filteredUsers.length} dari {users.length} pengguna
           </span>
@@ -279,7 +279,7 @@ const AdminPanel = () => {
                         <div className="flex items-center gap-2.5">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border ${
                             u.role === 'admin'
-                              ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                              ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
                               : 'bg-slate-700 text-slate-300 border-slate-600'
                           }`}>
                             {u.username.charAt(0).toUpperCase()}
