@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Trash2, Calendar, User as UserIcon, Pin } from 'lucide-react';
+import { Edit, Trash2, Calendar, User as UserIcon, Pin, Check, RotateCcw } from 'lucide-react';
 import { formatDate, formatStatus } from '../utils/formatters';
 
 const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) => {
