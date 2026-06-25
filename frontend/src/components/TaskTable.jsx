@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Trash2, Calendar, User as UserIcon, Check, RotateCcw } from 'lucide-react';
+import { Edit, Trash2, Calendar, User as UserIcon, Pin } from 'lucide-react';
 import { formatDate, formatStatus } from '../utils/formatters';
 
 const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) => {
@@ -37,13 +37,31 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) =
               
               // Only owners or admins can perform edit/delete
               const canModify = isAdmin || task.user_id === currentUser?.id;
+              const isPriority = task.is_priority === 1 || task.is_priority === true;
 
               return (
-                <tr key={task.id} className="hover:bg-slate-900/40 transition-colors">
+                <tr 
+                  key={task.id} 
+                  className={`transition-colors ${
+                    isPriority 
+                      ? 'bg-amber-500/5 hover:bg-amber-500/10' 
+                      : 'hover:bg-slate-900/40'
+                  }`}
+                >
                   {/* Title */}
                   <td className="px-6 py-4 font-semibold text-white">
-                    <div className="max-w-[180px] sm:max-w-[240px] truncate">
-                      {task.title}
+                    <div className="flex items-center gap-2">
+                      {isPriority && (
+                        <span 
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap"
+                          title="Tugas Prioritas"
+                        >
+                          <Pin size={10} className="fill-amber-400" /> Prioritas
+                        </span>
+                      )}
+                      <div className="max-w-[180px] sm:max-w-[240px] truncate">
+                        {task.title}
+                      </div>
                     </div>
                   </td>
 

@@ -30,8 +30,8 @@ class TaskModel {
       query += ' WHERE ' + conditions.join(' AND ');
     }
 
-    // Sort by due_date
-    query += ' ORDER BY t.due_date ASC, t.created_at DESC';
+    // Sort by priority first (is_priority = 1 on top), then due_date, then created_at
+    query += ' ORDER BY t.is_priority DESC, t.due_date ASC, t.created_at DESC';
 
     const [rows] = await this.db.execute(query, params);
     return rows;
@@ -57,28 +57,42 @@ class TaskModel {
   }
 
   // Create a new task
-  async create({ title, description, status = 'pending', due_date, user_id }) {
+  async create({ title, description, status = 'pending', due_date, is_priority = 0, user_id }) {
     const query = `
-      INSERT INTO tasks (title, description, status, due_date, user_id) 
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO tasks (title, description, status, due_date, is_priority, user_id) 
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
-    const [result] = await this.db.execute(query, [title, description, status, due_date, user_id]);
-    return { id: result.insertId, title, description, status, due_date, user_id };
+    const [result] = await this.db.execute(query, [
+      title,
+      description,
+      status,
+      due_date,
+      is_priority ? 1 : 0,
+      user_id
+    ]);
+    return { id: result.insertId, title, description, status, due_date, is_priority: !!is_priority, user_id };
   }
 
   // Update an existing task
-  async update(id, { userId, role }, { title, description, status, due_date }) {
+  async update(id, { userId, role }, { title, description, status, due_date, is_priority }) {
     // First, verify access
     const task = await this.findById(id, { userId, role });
     if (!task) return null;
 
     const query = `
       UPDATE tasks 
-      SET title = ?, description = ?, status = ?, due_date = ? 
+      SET title = ?, description = ?, status = ?, due_date = ?, is_priority = ? 
       WHERE id = ?
     `;
-    await this.db.execute(query, [title, description, status, due_date, id]);
-    return { id, title, description, status, due_date, user_id: task.user_id };
+    await this.db.execute(query, [
+      title,
+      description,
+      status,
+      due_date,
+      is_priority ? 1 : 0,
+      id
+    ]);
+    return { id, title, description, status, due_date, is_priority: !!is_priority, user_id: task.user_id };
   }
 
   // Delete a task

@@ -19,9 +19,24 @@ async function testConnection() {
     const connection = await pool.getConnection();
     console.log('Database connected successfully to MySQL.');
     connection.release();
+    await runMigrations();
   } catch (err) {
     console.error('Database connection failed:', err.message);
     console.log('Please ensure MySQL is running and the database "task_manager" exists.');
+  }
+}
+
+// Auto-migration function to ensure column is_priority exists
+async function runMigrations() {
+  try {
+    const [rows] = await pool.execute("SHOW COLUMNS FROM tasks LIKE 'is_priority'");
+    if (rows.length === 0) {
+      console.log('Column "is_priority" not found in tasks table. Running migration...');
+      await pool.execute("ALTER TABLE tasks ADD COLUMN is_priority TINYINT(1) DEFAULT 0");
+      console.log('Migration completed successfully: "is_priority" added to tasks.');
+    }
+  } catch (err) {
+    console.warn('Database migration skipped or failed:', err.message);
   }
 }
 
