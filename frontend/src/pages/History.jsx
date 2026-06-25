@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, RefreshCw, X } from 'lucide-react';
+import { Search, RefreshCw, X, History as HistoryIcon } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import taskService from '../services/task';
 import TaskTable from '../components/TaskTable';
 import TaskForm from '../components/TaskForm';
 
-const Tasks = () => {
+const History = () => {
   const { user } = useAuth();
   
   // State variables
@@ -24,11 +24,10 @@ const Tasks = () => {
     setLoading(true);
     setError('');
     try {
-      // Async/Await & Fetch/Axios via taskService
       const fetchedTasks = await taskService.getTasks(search);
       setTasks(fetchedTasks);
     } catch (err) {
-      setError(err.message || 'Gagal memuat daftar tugas.');
+      setError(err.message || 'Gagal memuat riwayat tugas.');
     } finally {
       setLoading(false);
     }
@@ -39,7 +38,7 @@ const Tasks = () => {
     fetchTasks();
   }, []);
 
-  // Handle Search Input (Event Handling & Array Filter/Query)
+  // Handle Search Input
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchTasks(searchQuery);
@@ -50,19 +49,13 @@ const Tasks = () => {
     fetchTasks('');
   };
 
-  // Open Form Modal for Create
-  const handleOpenCreateModal = () => {
-    setSelectedTask(null);
-    setIsFormOpen(true);
-  };
-
   // Open Form Modal for Edit
   const handleOpenEditModal = (task) => {
     setSelectedTask(task);
     setIsFormOpen(true);
   };
 
-  // Handle Submit Form (Create / Update CRUD actions)
+  // Handle Submit Form (Update CRUD action)
   const handleFormSubmit = async (formData) => {
     setIsFormOpen(false);
     setLoading(true);
@@ -71,13 +64,8 @@ const Tasks = () => {
 
     try {
       if (selectedTask) {
-        // Update Action
         const res = await taskService.updateTask(selectedTask.id, formData);
         setSuccessMsg(res.message || 'Tugas berhasil diperbarui.');
-      } else {
-        // Create Action
-        const res = await taskService.createTask(formData);
-        setSuccessMsg(res.message || 'Tugas berhasil dibuat.');
       }
       fetchTasks(searchQuery);
     } catch (err) {
@@ -88,13 +76,13 @@ const Tasks = () => {
 
   // Handle Delete CRUD action
   const handleDeleteTask = async (id) => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus tugas ini? Tindakan ini tidak bisa dibatalkan.')) {
+    if (window.confirm('Apakah Anda yakin ingin menghapus tugas ini secara permanen dari riwayat?')) {
       setLoading(true);
       setSuccessMsg('');
       setError('');
       try {
         const res = await taskService.deleteTask(id);
-        setSuccessMsg(res.message || 'Tugas berhasil dihapus.');
+        setSuccessMsg(res.message || 'Tugas berhasil dihapus dari riwayat.');
         fetchTasks(searchQuery);
       } catch (err) {
         setError(err.message || 'Gagal menghapus tugas.');
@@ -103,7 +91,7 @@ const Tasks = () => {
     }
   };
 
-  // Handle complete / incomplete status toggle
+  // Handle complete / incomplete status toggle (pulihkan tugas)
   const handleToggleComplete = async (task) => {
     setLoading(true);
     setSuccessMsg('');
@@ -116,7 +104,7 @@ const Tasks = () => {
         status: newStatus,
         due_date: task.due_date
       });
-      setSuccessMsg(newStatus === 'completed' ? 'Tugas ditandai sebagai selesai!' : 'Tugas dipulihkan.');
+      setSuccessMsg(newStatus === 'completed' ? 'Tugas ditandai sebagai selesai!' : 'Tugas berhasil dipulihkan ke daftar tugas aktif.');
       fetchTasks(searchQuery);
     } catch (err) {
       setError(err.message || 'Gagal memperbarui status tugas.');
@@ -132,25 +120,24 @@ const Tasks = () => {
     }
   }, [successMsg]);
 
+  // Filter only completed tasks
+  const completedTasks = tasks.filter(t => t.status === 'completed');
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-white tracking-tight">Kelola Tugas</h2>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
+              <HistoryIcon size={12} /> Arsip Riwayat
+            </span>
+          </div>
+          <h2 className="text-2xl font-extrabold text-white tracking-tight">Riwayat Tugas</h2>
           <p className="text-sm text-slate-400">
-            {user?.role === 'admin' 
-              ? 'Daftar semua tugas yang ada di sistem database.' 
-              : 'Daftar tugas pribadi Anda.'}
+            Daftar tugas pengerjaan terdahulu yang telah diselesaikan.
           </p>
         </div>
-        <button
-          onClick={handleOpenCreateModal}
-          className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4.5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/15 hover:shadow-indigo-600/25 transition-all self-start sm:self-center"
-        >
-          <Plus size={16} />
-          <span>Tambah Tugas</span>
-        </button>
       </div>
 
       {/* Notifications */}
@@ -172,7 +159,7 @@ const Tasks = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cari tugas berdasarkan judul atau deskripsi..."
+            placeholder="Cari tugas selesai berdasarkan judul atau deskripsi..."
             className="w-full bg-slate-900 border border-slate-800/80 rounded-xl pl-10 pr-10 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm"
           />
           <Search size={16} className="absolute left-3.5 text-slate-500" />
@@ -207,7 +194,7 @@ const Tasks = () => {
         </div>
       ) : (
         <TaskTable
-          tasks={tasks.filter(t => t.status !== 'completed')}
+          tasks={completedTasks}
           onEdit={handleOpenEditModal}
           onDelete={handleDeleteTask}
           onToggleComplete={handleToggleComplete}
@@ -215,17 +202,17 @@ const Tasks = () => {
         />
       )}
 
-      {/* Create / Edit Form Modal */}
+      {/* Edit Form Modal */}
       {isFormOpen && (
         <TaskForm
           initialData={selectedTask}
           onSubmit={handleFormSubmit}
           onCancel={() => setIsFormOpen(false)}
-          titleText={selectedTask ? 'Perbarui Data Tugas' : 'Tambah Tugas Baru'}
+          titleText="Perbarui Data Tugas Riwayat"
         />
       )}
     </div>
   );
 };
 
-export default Tasks;
+export default History;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Edit, Trash2, Calendar, User as UserIcon, Pin } from 'lucide-react';
 import { formatDate, formatStatus } from '../utils/formatters';
 
-const TaskTable = ({ tasks, onEdit, onDelete, currentUser }) => {
+const TaskTable = ({ tasks, onEdit, onDelete, currentUser, onToggleComplete }) => {
   const isAdmin = currentUser?.role === 'admin';
 
   if (!tasks || tasks.length === 0) {
@@ -102,6 +102,19 @@ const TaskTable = ({ tasks, onEdit, onDelete, currentUser }) => {
                     <div className="flex items-center justify-end gap-2.5">
                       {canModify ? (
                         <>
+                          {onToggleComplete && (
+                            <button
+                              onClick={() => onToggleComplete(task)}
+                              className={`p-1.5 rounded-lg transition-colors ${
+                                task.status === 'completed'
+                                  ? 'text-slate-400 hover:text-amber-400 hover:bg-slate-800/50'
+                                  : 'text-slate-400 hover:text-emerald-400 hover:bg-slate-800/50'
+                              }`}
+                              title={task.status === 'completed' ? 'Pulihkan Tugas (Menjadi Tertunda)' : 'Tandai Selesai'}
+                            >
+                              {task.status === 'completed' ? <RotateCcw size={16} /> : <Check size={16} />}
+                            </button>
+                          )}
                           <button
                             onClick={() => onEdit(task)}
                             className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-400 hover:bg-slate-800/50 transition-colors"

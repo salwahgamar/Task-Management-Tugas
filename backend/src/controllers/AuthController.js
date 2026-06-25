@@ -45,7 +45,7 @@ class AuthController {
         username: username.trim(),
         email: email.trim().toLowerCase(),
         password: hashedPassword,
-        role: role === 'admin' ? 'admin' : 'user' // default 'user'
+        role: 'user' // Registrasi hanya diperbolehkan untuk peran standard 'user'
       });
 
       return res.status(201).json({
