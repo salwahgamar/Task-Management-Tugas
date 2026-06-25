@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import AdminPanel from './pages/AdminPanel';
+import History from './pages/History';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/history" element={<History />} />
           </Route>
 
           {/* Fallback Route */}
