@@ -7,7 +7,8 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
     title: '',
     description: '',
     status: 'pending',
-    due_date: ''
+    due_date: '',
+    is_priority: false
   });
   const [errors, setErrors] = useState({});
 
@@ -24,16 +25,17 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
         title: initialData.title || '',
         description: initialData.description || '',
         status: initialData.status || 'pending',
-        due_date: dateVal
+        due_date: dateVal,
+        is_priority: !!initialData.is_priority
       });
     }
   }, [initialData]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
     // Clear validation error when typing
     if (errors[name]) {
@@ -146,6 +148,24 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
                 <p className="mt-1.5 text-xs text-rose-400 font-medium">{errors.due_date}</p>
               )}
             </div>
+          </div>
+
+          {/* Priority Option */}
+          <div className="flex items-center justify-between p-3.5 bg-slate-900/30 border border-slate-800/40 rounded-xl transition-all duration-300 hover:border-slate-850">
+            <div className="flex flex-col gap-0.5">
+              <label htmlFor="is_priority" className="text-sm font-bold text-white cursor-pointer select-none">
+                Tugas Prioritas (Pin)
+              </label>
+              <span className="text-xs text-slate-500">Tugas akan disematkan di bagian paling atas Kelola Tugas dan Dashboard.</span>
+            </div>
+            <input
+              type="checkbox"
+              id="is_priority"
+              name="is_priority"
+              checked={formData.is_priority}
+              onChange={handleChange}
+              className="h-5 w-5 rounded-lg border-slate-850 bg-slate-900 text-indigo-600 focus:ring-indigo-500/20 focus:ring-offset-slate-950 accent-indigo-600 cursor-pointer"
+            />
           </div>
 
           {/* Form Actions */}
