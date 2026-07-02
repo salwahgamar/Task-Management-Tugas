@@ -61,10 +61,10 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
       <div className="glass w-full max-w-lg rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
-          <h2 className="text-xl font-bold text-white tracking-tight">{titleText}</h2>
+          <h2 className="text-xl font-bold text-slate-100 tracking-tight">{titleText}</h2>
           <button
             onClick={onCancel}
-            className="text-slate-400 hover:text-white rounded-lg p-1.5 hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-slate-100 rounded-lg p-1.5 hover:bg-slate-800 transition-colors"
           >
             <X size={18} />
           </button>
@@ -86,7 +86,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
               placeholder="Masukkan judul tugas..."
               className={`w-full bg-slate-900 border ${
                 errors.title ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-              } rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+              } rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
             />
             {errors.title && (
               <p className="mt-1.5 text-xs text-rose-400 font-medium">{errors.title}</p>
@@ -105,7 +105,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
               onChange={handleChange}
               rows={3}
               placeholder="Detail penjelasan tugas..."
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+              className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
             />
           </div>
 
@@ -121,7 +121,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
               >
                 <option value="pending">Tertunda</option>
                 <option value="in_progress">Sedang Berjalan</option>
@@ -142,7 +142,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
                 onChange={handleChange}
                 className={`w-full bg-slate-900 border ${
                   errors.due_date ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-                } rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+                } rounded-xl px-4 py-2.5 text-slate-100 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
               />
               {errors.due_date && (
                 <p className="mt-1.5 text-xs text-rose-400 font-medium">{errors.due_date}</p>
@@ -153,7 +153,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
           {/* Priority Option */}
           <div className="flex items-center justify-between p-3.5 bg-slate-900/30 border border-slate-800/40 rounded-xl transition-all duration-300 hover:border-slate-850">
             <div className="flex flex-col gap-0.5">
-              <label htmlFor="is_priority" className="text-sm font-bold text-white cursor-pointer select-none">
+              <label htmlFor="is_priority" className="text-sm font-bold text-slate-100 cursor-pointer select-none">
                 Tugas Prioritas (Pin)
               </label>
               <span className="text-xs text-slate-500">Tugas akan disematkan di bagian paling atas Kelola Tugas dan Dashboard.</span>
@@ -173,7 +173,7 @@ const TaskForm = ({ initialData, onSubmit, onCancel, titleText = 'Tambah Tugas B
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2.5 rounded-xl border border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white transition-all text-sm font-medium"
+              className="px-4 py-2.5 rounded-xl border border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-slate-100 transition-all text-sm font-medium"
             >
               Batal
             </button>

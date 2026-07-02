@@ -63,7 +63,7 @@ const Register = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-white tracking-tight mb-2 text-center">
+      <h2 className="text-2xl font-bold text-slate-100 tracking-tight mb-2 text-center">
         Daftar Akun Baru
       </h2>
       <p className="text-sm text-slate-400 text-center mb-6">
@@ -91,7 +91,7 @@ const Register = () => {
             placeholder="contoh: budi123"
             className={`w-full bg-slate-900 border ${
               errors.username ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-            } rounded-xl px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+            } rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
           />
           {errors.username && (
             <p className="mt-1 text-xs text-rose-400 font-medium">{errors.username}</p>
@@ -112,7 +112,7 @@ const Register = () => {
             placeholder="contoh: budi@email.com"
             className={`w-full bg-slate-900 border ${
               errors.email ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-            } rounded-xl px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+            } rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
           />
           {errors.email && (
             <p className="mt-1 text-xs text-rose-400 font-medium">{errors.email}</p>
@@ -133,7 +133,7 @@ const Register = () => {
             placeholder="••••••••"
             className={`w-full bg-slate-900 border ${
               errors.password ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-            } rounded-xl px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+            } rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
           />
           {errors.password && (
             <p className="mt-1 text-xs text-rose-400 font-medium">{errors.password}</p>
@@ -154,7 +154,7 @@ const Register = () => {
             placeholder="••••••••"
             className={`w-full bg-slate-900 border ${
               errors.confirmPassword ? 'border-rose-500/80 focus:ring-rose-500/20' : 'border-slate-800 focus:ring-indigo-500/20'
-            } rounded-xl px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
+            } rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-4 focus:border-indigo-500 transition-all text-sm`}
           />
           {errors.confirmPassword && (
             <p className="mt-1 text-xs text-rose-400 font-medium">{errors.confirmPassword}</p>

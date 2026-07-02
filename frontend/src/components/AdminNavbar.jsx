@@ -1,35 +1,47 @@
 import React from 'react';
-import { LogOut, Shield } from 'lucide-react';
+import { LogOut, Shield, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { useTheme } from '../hooks/useTheme';
 
 const AdminNavbar = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="sticky top-0 z-30 flex h-16 w-full items-center justify-between px-4 sm:px-6 border-b border-amber-900/40 bg-slate-900/80 backdrop-blur-md">
       {/* Left side: Brand */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 border border-amber-500/30">
-            <Shield size={18} className="text-amber-400" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 dark:bg-amber-500/15 border border-amber-200 dark:border-amber-500/30">
+            <Shield size={18} className="text-amber-600 dark:text-amber-400" />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-bold text-white tracking-tight">Admin Panel</span>
-            <span className="text-[10px] text-amber-400 font-semibold uppercase tracking-widest">Task Manager</span>
+            <span className="text-sm font-bold text-slate-100 tracking-tight">Admin Panel</span>
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-widest">Task Manager</span>
           </div>
         </div>
 
         {/* Admin badge */}
-        <span className="hidden sm:inline-flex items-center gap-1 ml-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-amber-500/15 text-amber-400 border border-amber-500/30">
+        <span className="hidden sm:inline-flex items-center gap-1 ml-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-amber-50 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30">
           🔑 Administrator
         </span>
       </div>
 
       {/* Right side: User info & Logout */}
       <div className="flex items-center gap-4">
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className="rounded-xl p-2 text-slate-450 hover:bg-slate-800 hover:text-slate-100 border border-slate-800 transition-all duration-200"
+          aria-label="Toggle Theme"
+          title={theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
+
         <div className="hidden sm:flex flex-col text-right border-r border-slate-800 pr-4">
           <span className="text-sm font-medium text-slate-200">{user?.username}</span>
-          <span className="text-xs text-amber-400">Admin</span>
+          <span className="text-xs text-amber-600 dark:text-amber-400">Admin</span>
         </div>
 
         <button

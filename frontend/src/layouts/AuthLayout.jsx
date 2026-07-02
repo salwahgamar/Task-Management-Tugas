@@ -31,7 +31,7 @@ const AuthLayout = () => {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-600 text-white font-bold text-3xl shadow-lg shadow-indigo-500/25 mb-4 animate-pulse">
           🎯
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight font-sans">
+        <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight font-sans">
           Task Manager
         </h1>
         <p className="mt-2 text-sm text-slate-400">

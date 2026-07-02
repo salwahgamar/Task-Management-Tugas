@@ -1,9 +1,11 @@
 import React from 'react';
-import { Menu, LogOut, User as UserIcon } from 'lucide-react';
+import { Menu, LogOut, User as UserIcon, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { useTheme } from '../hooks/useTheme';
 
 const Navbar = ({ onToggleSidebar }) => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="glass sticky top-0 z-30 flex h-16 w-full items-center justify-between px-4 sm:px-6 border-b border-slate-800/80">
@@ -16,15 +18,25 @@ const Navbar = ({ onToggleSidebar }) => {
         >
           <Menu size={20} />
         </button>
-        <span className="hidden sm:inline-block text-xl font-bold tracking-tight text-white">
-          🎯 Task<span className="text-indigo-400">Manager</span>
+        <span className="hidden sm:inline-block text-xl font-bold tracking-tight text-slate-100">
+          🎯 Task<span className="text-indigo-600 dark:text-indigo-400">Manager</span>
         </span>
       </div>
 
       {/* Right side: User Profile Info & Logout */}
       <div className="flex items-center gap-4">
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className="rounded-xl p-2 text-slate-450 hover:bg-slate-800 hover:text-slate-100 border border-slate-800 transition-all duration-200"
+          aria-label="Toggle Theme"
+          title={theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
+
         <div className="flex items-center gap-3 border-r border-slate-800 pr-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-800 text-indigo-400 border border-slate-700">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-slate-700">
             <UserIcon size={16} />
           </div>
           <div className="hidden sm:flex flex-col text-left">
